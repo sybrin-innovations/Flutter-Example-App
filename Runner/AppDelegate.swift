@@ -6,9 +6,9 @@ import Sybrin_iOS_Biometrics
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
     
-    let licenseKey: String = "5Kcw4or1D94x5RKHsNJ5dIPzO5iU+Z+0AD9xsqBeCZRx1zc2QMYpzogkSTjzIiaVgv2y5SP2BgIsOJTKPzc7j/00eY/mMDg18uhQ0EJ/ubPDDPpCR8+vlPHAnIwOotB5ACwzIkWg08KJ3PH5RTQOwV5kmJxO/M9dS5pkMgIVwwt4jaOz09rv49Jh8ow4nTtkdFL8nlNBRgvPLHdh98ARrZ9aaN1T3/s62vYysQWAhKA0jzmqeA3qzE++0NacUc58C9xWAAK/FeNFje1RyG4tlrS6mwubzNVWqfBiHSShWlIEWSk6XwTqGsN35GRxbs1FSyLCFZIl4gsuZzT1Jr9/dwkBz+A/vcyvQyXipY0qBk4+b3eGrbGe8DqTGV41LPCDA9gs15q2pOcYkqgPFxombDwZEahm7lxiAceCahLDM4IQJmEnZJ/ILW4fFwOhnHre2zVzdC9fJq5WUnh/5GS6PRQpDXBoxQXS9Dp6q74qORqEEL+MCIvkGNXIBMmWCSfR"
+    let licenseKey: String = ""
     
-    let biometricLicenseKey = "5Kcw4or1D94x5RKHsNJ5dIPzO5iU+Z+0AD9xsqBeCZRx1zc2QMYpzogkSTjzIiaVgAYeYVp5JPoD/L/vG3zBoFWgaz12+OKOKaaX0nGny6iWigS5YtIlZBuTN4CEz8j/M/QCUOFrLUcdjCZkIR9yc4BYhJbNm+dCC66kBbWqzLsWUZuVtcBlIFE1UlxHaiYAiE/ZLNSWK8+cZsB8dMHxQuICdJ7S1mSfp0+2SzwxFdxIV5hlXC+0uvS7bDYOvqGKn1easrAvnIDyoyWr93MC9PBPdHDqKBrrRSSC8h/EB2uhC+20EhNHxyjz+zCI9+hUn4Mbgu/9oKl4e4mohSVaQYNKXCr7MtXyJcWsxPuv5zm/k/cOuLD3yLrEhJj6bJP5FD5w9I6rIoTqn5J8CRNPQuUHrhjw/qK+9G5xXhcTsfcJ0HinCthU9MqULBSHEv58Eh58PBj0OlrWDXCgDM76vZ+TmjIhczRMRuszrPy8iDKqNjnWTrS5xOhzV9v50GCj"
+    let biometricLicenseKey = ""
     
   override func application(
     _ application: UIApplication,
@@ -21,14 +21,14 @@ import Sybrin_iOS_Biometrics
       SybrinIdentity.shared.configuration = sybrinConfig
       SybrinIdentity.shared.changeLogLevel(to: .Information)
       
-      let sybrinBiometricsConfig = SybrinBiometricsConfiguration(license: biometricLicenseKey)
-      sybrinBiometricsConfig.language = .ENGLISH
-      SybrinBiometrics.shared.configuration = sybrinBiometricsConfig
-      SybrinBiometrics.shared.changeLogLevel(to: .Information)
+    //   let sybrinBiometricsConfig = SybrinBiometricsConfiguration(license: biometricLicenseKey)
+    //   sybrinBiometricsConfig.language = .ENGLISH
+    //   SybrinBiometrics.shared.configuration = sybrinBiometricsConfig
+    //   SybrinBiometrics.shared.changeLogLevel(to: .Information)
       
       
       identiftySetup()
-      biometricsSetup()
+    //   biometricsSetup()
       
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
@@ -56,24 +56,24 @@ import Sybrin_iOS_Biometrics
         })
     }
     
-    func biometricsSetup() {
-        let controller : FlutterViewController = window?.rootViewController as! FlutterViewController
-        let methodChannelName = "com.example.myTestApp/passiveLiveness"
-        let passiveLivenessChannel = FlutterMethodChannel(name: methodChannelName, binaryMessenger: controller.binaryMessenger)
+    // func biometricsSetup() {
+    //     let controller : FlutterViewController = window?.rootViewController as! FlutterViewController
+    //     let methodChannelName = "com.example.myTestApp/passiveLiveness"
+    //     let passiveLivenessChannel = FlutterMethodChannel(name: methodChannelName, binaryMessenger: controller.binaryMessenger)
         
-        passiveLivenessChannel.setMethodCallHandler({
-            [self] (call: FlutterMethodCall, result: @escaping FlutterResult) -> Void in
-            switch call.method {
-            case "passiveLiveness":
-                passiveLivenessScan(controller: controller) {
-                    res in
-                    result(res)
-                }
-            default:
-                result(FlutterMethodNotImplemented)
-            }
-        })
-    }
+    //     passiveLivenessChannel.setMethodCallHandler({
+    //         [self] (call: FlutterMethodCall, result: @escaping FlutterResult) -> Void in
+    //         switch call.method {
+    //         case "passiveLiveness":
+    //             passiveLivenessScan(controller: controller) {
+    //                 res in
+    //                 result(res)
+    //             }
+    //         default:
+    //             result(FlutterMethodNotImplemented)
+    //         }
+    //     })
+    // }
     
     private func scanIDCard(controller: FlutterViewController, completion: @escaping (String, Bool?) -> Void) {
             
@@ -153,16 +153,16 @@ import Sybrin_iOS_Biometrics
 
     }
     
-    private func passiveLivenessScan(controller: FlutterViewController, completion: @escaping (String) -> Void ) {
-        SybrinBiometrics.shared.openPassiveLivenessDetection(on: controller) {
-            (result, message) in
+    // private func passiveLivenessScan(controller: FlutterViewController, completion: @escaping (String) -> Void ) {
+    //     SybrinBiometrics.shared.openPassiveLivenessDetection(on: controller) {
+    //         (result, message) in
             
-            completion("done")
-        }
-        success: { (model) in}
-        failure: { err_ in}
-        cancel: { }
-    }
+    //         completion("done")
+    //     }
+    //     success: { (model) in}
+    //     failure: { err_ in}
+    //     cancel: { }
+    // }
     
     
     func showToast(controller: UIViewController, message : String) {
